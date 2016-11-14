@@ -1,3 +1,6 @@
+# TODO: Layout of app
+# TODO: Dynamic UI to allow for multiple merges
+
 from PyPDF2 import PdfFileReader, PdfFileWriter
 from tkinter import *
 from tkinter import filedialog
@@ -18,8 +21,16 @@ class PdfGUI:
         self.first_file_label.pack()
 
         # File 1 browse button - Command argument as a lambda function so does not run upon startup
-        self.first_file_browser = Button(master, text='Browse', command=lambda: self.file_browser())
+        self.first_file_browser = Button(master, text='Browse...', command=lambda: self.file_browser())
         self.first_file_browser.pack()
+
+        # File 2 label
+        self.second_file_label = Label(master, text='Select a file')
+        self.second_file_label.pack()
+
+        # File 2 browse button
+        self.second_file_browser = Button(master, text='Browse...', command=lambda: self.file_browser())
+        self.second_file_browser.pack()
 
     # Function to open file browser
     def file_browser(self):
