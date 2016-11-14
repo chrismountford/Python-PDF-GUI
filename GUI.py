@@ -1,5 +1,6 @@
 from PyPDF2 import PdfFileReader, PdfFileWriter
 from tkinter import *
+from tkinter import filedialog
 
 
 # Create a class for the GUI - initialise with title, close window button
@@ -8,11 +9,26 @@ class PdfGUI:
         self.master = master
         master.title = 'PDF Merger'
 
-        self.quit_button = Button(master, text="Close Window", command=master.quit)
+        # Quit app button
+        self.quit_button = Button(master, text='Close Window', command=master.quit)
         self.quit_button.pack()
 
-root = Tk()
-app = PdfGUI(master=root)
-root.mainloop()
+        # File 1 label
+        self.first_file_label = Label(master, text='Select a file')
+        self.first_file_label.pack()
+
+        # File 1 browse button - Command argument as a lambda function so does not run upon startup
+        self.first_file_browser = Button(master, text='Browse', command=lambda: self.file_browser())
+        self.first_file_browser.pack()
+
+    # Function to open file browser
+    def file_browser(self):
+        self.file_name = filedialog.askopenfilename()
+
+
+if __name__ == '__main__':
+    root = Tk()
+    app = PdfGUI(master=root)
+    root.mainloop()
 
 
