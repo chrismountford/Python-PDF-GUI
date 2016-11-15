@@ -36,21 +36,29 @@ class PdfGUI:
 
         self.second_select_label = Entry(master, textvariable=self.file_name2_text)
 
+        # Output naming
+        self.merged_file_name = Entry(master)
+
         # Merge button
 
         self.merge_button = Button(master, text='Merge',
                                    command=lambda:
-                                   PDFMethods.combine_pdf(self.file_name_text.get(), self.file_name2_text.get()))
+                                   PDFMethods.combine_pdf(self.file_name_text.get(), self.file_name2_text.get(),
+                                                          self.merged_file_name.get()))
 
         # LAYOUT #
 
         self.first_file_label.grid(row=0, column=0)
         self.first_file_browser.grid(row=0, column=1)
         self.first_select_label.grid(row=0, column=2)
+
         self.second_file_label.grid(row=1, column=0)
         self.second_file_browser.grid(row=1, column=1)
         self.second_select_label.grid(row=1, column=2)
-        self.merge_button.grid(row=2, column=1)
+
+        self.merged_file_name.grid(row=2, column=0)
+
+        self.merge_button.grid(row=3, column=0)
 
         self.quit_button.grid(row=10, column=1)
 

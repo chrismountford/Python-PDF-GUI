@@ -6,10 +6,10 @@ def append_pdf(input, output):
     [output.addPage(input.getPage(page_num)) for page_num in range(input.numPages)]
 
 
-def combine_pdf(file1, file2):
+def combine_pdf(file1, file2, output_name):
     output = PdfFileWriter()
 
     append_pdf(PdfFileReader(open(file1, 'rb')), output)
     append_pdf(PdfFileReader(open(file2, 'rb')), output)
 
-    output.write(open('TEST.pdf', 'wb'))
+    output.write(open(output_name + '.pdf', 'wb'))
