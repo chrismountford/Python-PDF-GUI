@@ -12,4 +12,4 @@ def combine_pdf(file1, file2):
     append_pdf(PdfFileReader(open(file1, 'rb')), output)
     append_pdf(PdfFileReader(open(file2, 'rb')), output)
 
-    output.write(open(file1 + file2, 'wb'))
+    output.write(open('TEST.pdf', 'wb'))
