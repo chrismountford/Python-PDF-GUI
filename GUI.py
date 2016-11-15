@@ -1,6 +1,7 @@
 # TODO: Layout of app
 # TODO: Dynamic UI to allow for multiple merges
 # TODO: Build in PDF functionality
+# TODO: Turn labels into entry boxes
 
 from tkinter import *
 from tkinter import filedialog
@@ -26,14 +27,14 @@ class PdfGUI:
         # Command argument as a lambda function so does not run upon startup
         self.first_file_browser = Button(master, text='Browse...', command=lambda: self.file_browser())
 
-        self.first_select_label = Label(master, textvariable=self.file_name_text)
+        self.first_select_label = Entry(master, textvariable=self.file_name_text)
 
         # File 2
         self.second_file_label = Label(master, text='Select a file')
 
         self.second_file_browser = Button(master, text='Browse...', command=lambda: self.file_browser2())
 
-        self.second_select_label = Label(master, textvariable=self.file_name2_text)
+        self.second_select_label = Entry(master, textvariable=self.file_name2_text)
 
         # Merge button
 
