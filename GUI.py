@@ -1,17 +1,18 @@
 # TODO: Layout of app
 # TODO: Dynamic UI to allow for multiple merges
+# TODO: Add in error handling
 
 from tkinter import *
 from tkinter import filedialog
 import PDFMethods
 
 
-# Create a class for the GUI - initialise with title, close window button
+# Create a class for the GUI
 class PdfGUI:
     def __init__(self, master):
         self.master = master
         master.title('PDF Merger')
-        master.geometry("400x300")
+        master.geometry("600x300")
 
         bg_col = '#FFFFFF'
         font_style = 'Helvetica'
@@ -29,12 +30,12 @@ class PdfGUI:
         self.first_file_label = Label(master, text='Select a file:', bg=bg_col)
         # Command argument as a lambda function so does not run upon startup
         self.first_file_browser = Button(master, text='Browse', command=lambda: self.file_browser())
-        self.first_select_label = Entry(master, textvariable=self.file_name_text)
+        self.first_select_label = Entry(master, textvariable=self.file_name_text, width=30)
 
         # File 2
         self.second_file_label = Label(master, text='Select a file:', bg=bg_col)
         self.second_file_browser = Button(master, text='Browse', command=lambda: self.file_browser2())
-        self.second_select_label = Entry(master, textvariable=self.file_name2_text)
+        self.second_select_label = Entry(master, textvariable=self.file_name2_text, width=30)
 
         # Output naming
         self.merged_file_name = Entry(master)

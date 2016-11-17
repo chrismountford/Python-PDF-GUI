@@ -1,5 +1,5 @@
 from PyPDF2 import PdfFileReader, PdfFileWriter
-import os
+from tkinter import messagebox
 
 
 def append_pdf(input, output):
@@ -9,7 +9,16 @@ def append_pdf(input, output):
 def combine_pdf(file1, file2, dir_name, output_name):
     output = PdfFileWriter()
 
-    append_pdf(PdfFileReader(open(file1, 'rb')), output)
-    append_pdf(PdfFileReader(open(file2, 'rb')), output)
+    try:
+        append_pdf(PdfFileReader(open(file1, 'rb')), output)
+        append_pdf(PdfFileReader(open(file2, 'rb')), output)
+
+    except FileNotFoundError:
+        messagebox.showwarning(title="Error Opening File",
+                               message="Please select a file that exists")
+
+    except PermissionError:
+        messagebox.showerror(title="Error in Merged File Name",
+                             message="Please enter a legal file name")
 
     output.write(open(dir_name + '/' + output_name + '.pdf', 'wb'))
