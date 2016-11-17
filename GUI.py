@@ -11,12 +11,10 @@ class PdfGUI:
     def __init__(self, master):
         self.master = master
         master.title('PDF Merger')
-        master.geometry("300x300")
+        master.geometry("400x300")
 
         bg_col = '#FFFFFF'
         font_style = 'Helvetica'
-
-
 
         master.configure(background=bg_col)
 
@@ -39,15 +37,16 @@ class PdfGUI:
         self.second_select_label = Entry(master, textvariable=self.file_name2_text)
 
         # Output naming
-        self.merged_file_name = Entry(master, textvariable=self.save_dir_text)
+        self.merged_file_name = Entry(master)
         self.merged_file_label = Label(master, text='Select a directory:', bg=bg_col)
         self.merged_directory_browser = Button(master, text='Browse', command=lambda: self.save_dir())
+        self.merged_directory_label = Label(master, textvariable=self.save_dir_text, bg=bg_col)
 
         # Merge button
         self.merge_button = Button(master, text='Merge',
                                    command=lambda:
                                    PDFMethods.combine_pdf(self.file_name_text.get(), self.file_name2_text.get(),
-                                                          self.merged_file_name.get()))
+                                                          self.save_dir_text.get(), self.merged_file_name.get()))
 
         # Title
         self.title_label = Label(master, text='PDF Merger', font=(font_style, 16), bg=bg_col)
@@ -72,8 +71,9 @@ class PdfGUI:
         self.blank_label.grid(row=4, column=0)
 
         self.merged_file_label.grid(row=5, column=0)
-        self.merged_file_name.grid(row=5, column=1)
-        self.merged_directory_browser.grid(row=5, column=2)
+        self.merged_directory_label.grid(row=5, column=1)
+        self.merged_file_name.grid(row=5, column=2)
+        self.merged_directory_browser.grid(row=5, column=3)
 
         self.merge_button.grid(row=6, column=0)
 
