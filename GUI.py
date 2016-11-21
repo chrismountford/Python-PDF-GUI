@@ -7,17 +7,23 @@ from tkinter import filedialog
 import PDFMethods
 
 
+bg_col = '#FFFFFF'
+font_style = 'Helvetica'
+
+
 # Create a class for the GUI
 class PdfGUI:
     def __init__(self, master):
         self.master = master
         master.title('PDF Merger')
-        master.geometry("600x300")
-
-        bg_col = '#FFFFFF'
-        font_style = 'Helvetica'
+        master.geometry("650x300")
 
         master.configure(background=bg_col)
+
+        # Make these instances of a class?
+        self.frame1 = Frame(master, height=200, width=300)
+        self.frame2 = Frame(master, height=200, width=300)
+        self.frame3 = Frame(master, height=200, width=300)
 
         self.file_name_text = StringVar()
         self.file_name2_text = StringVar()
@@ -27,24 +33,24 @@ class PdfGUI:
         self.quit_button = Button(master, text='Close Window', command=master.quit)
 
         # File 1
-        self.first_file_label = Label(master, text='Select a file:', bg=bg_col)
+        self.first_file_label = Label(self.frame1, text='Select a file:', bg=bg_col)
         # Command argument as a lambda function so does not run upon startup
-        self.first_file_browser = Button(master, text='Browse', command=lambda: self.file_browser())
-        self.first_select_label = Entry(master, textvariable=self.file_name_text, width=30)
+        self.first_file_browser = Button(self.frame1, text='Browse', command=lambda: self.file_browser())
+        self.first_select_label = Label(self.frame1, textvariable=self.file_name_text, width=50)
 
         # File 2
-        self.second_file_label = Label(master, text='Select a file:', bg=bg_col)
-        self.second_file_browser = Button(master, text='Browse', command=lambda: self.file_browser2())
-        self.second_select_label = Entry(master, textvariable=self.file_name2_text, width=30)
+        self.second_file_label = Label(self.frame2, text='Select a file:', bg=bg_col)
+        self.second_file_browser = Button(self.frame2, text='Browse', command=lambda: self.file_browser2())
+        self.second_select_label = Label(self.frame2, textvariable=self.file_name2_text, width=50)
 
         # Output naming
-        self.merged_file_name = Entry(master)
-        self.merged_file_label = Label(master, text='Select a directory:', bg=bg_col)
-        self.merged_directory_browser = Button(master, text='Browse', command=lambda: self.save_dir())
-        self.merged_directory_label = Label(master, textvariable=self.save_dir_text, bg=bg_col)
+        self.merged_file_name = Entry(self.frame3)
+        self.merged_file_label = Label(self.frame3, text='Select a directory:', bg=bg_col)
+        self.merged_directory_browser = Button(self.frame3, text='Browse', command=lambda: self.save_dir())
+        self.merged_directory_label = Label(self.frame3, textvariable=self.save_dir_text, bg=bg_col)
 
         # Merge button
-        self.merge_button = Button(master, text='Merge',
+        self.merge_button = Button(self.frame3, text='Merge',
                                    command=lambda:
                                    PDFMethods.combine_pdf(self.file_name_text.get(), self.file_name2_text.get(),
                                                           self.save_dir_text.get(), self.merged_file_name.get()))
@@ -57,28 +63,26 @@ class PdfGUI:
 
         # LAYOUT #
 
-        self.title_label.grid(row=0, column=1)
+        self.title_label.grid(row=0, column=0)
 
-        self.blank_label.grid(row=1, column=1)
+        self.frame1.grid(row=1, column=0)
+        self.first_file_label.grid(row=1, column=0)
+        self.first_file_browser.grid(row=1, column=1)
+        self.first_select_label.grid(row=1, column=2)
 
-        self.first_file_label.grid(row=2, column=0)
-        self.first_select_label.grid(row=2, column=1)
-        self.first_file_browser.grid(row=2, column=2)
+        self.frame2.grid(row=2, column=0)
+        self.second_file_label.grid(row=1, column=0)
+        self.second_file_browser.grid(row=1, column=1)
+        self.second_select_label.grid(row=1, column=2)
 
-        self.second_file_label.grid(row=3, column=0)
-        self.second_select_label.grid(row=3, column=1)
-        self.second_file_browser.grid(row=3, column=2)
+        self.frame3.grid(row=3, column=0)
+        self.merged_file_label.grid(row=1, column=0)
+        self.merged_directory_browser.grid(row=1, column=1)
+        self.merged_directory_label.grid(row=1, column=2)
+        self.merged_file_name.grid(row=1, column=3)
+        self.merge_button.grid(row=2, column=1)
 
-        self.blank_label.grid(row=4, column=0)
-
-        self.merged_file_label.grid(row=5, column=0)
-        self.merged_directory_label.grid(row=5, column=1)
-        self.merged_file_name.grid(row=5, column=2)
-        self.merged_directory_browser.grid(row=5, column=3)
-
-        self.merge_button.grid(row=6, column=0)
-
-        self.quit_button.grid(row=10, column=1)
+        self.quit_button.grid(row=6, column=1)
 
     # Function to open file browser
     def file_browser(self):
