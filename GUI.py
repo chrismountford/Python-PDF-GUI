@@ -8,10 +8,8 @@ from tkinter import filedialog
 import PDFMethods
 
 
-bg_col = '#FFFFFF'
+bg_col = '#DCDCDC'
 font_style = 'Helvetica'
-
-sel_file_text = 'Please select a file'
 
 
 # Create a class for the GUI
@@ -30,8 +28,12 @@ class PdfGUI:
         self.frame3 = Frame(master, bg=bg_col)
 
         self.file_name_text = StringVar()
+        self.file_name_text.set('')
         self.file_name2_text = StringVar()
         self.save_dir_text = StringVar()
+
+        self.sel_file_text = StringVar()
+        self.sel_file_text.set('Please select a file')
 
         # Title
         self.title_label = Label(self.frame0, text='PDF Merger', font=(font_style, 16), bg=bg_col)
@@ -61,7 +63,7 @@ class PdfGUI:
                                                           self.save_dir_text.get(), self.merged_file_name.get()))
 
         # Quit app button
-        self.quit_button = Button(self.frame3, text='Close Window', command=master.quit)
+        self.quit_button = Button(self.frame3, text='Quit', command=master.quit)
 
         # LAYOUT #
 
@@ -100,7 +102,7 @@ class PdfGUI:
         self.merged_directory_browser.grid(row=1, column=1, sticky=W)
         self.merged_directory_label.grid(row=1, column=2, sticky=W)
         self.save_file_name.grid(row=2, column=1, sticky=W)
-        self.merged_file_name.grid(row=2, column=3, sticky=W)
+        self.merged_file_name.grid(row=2, column=2, sticky=W)
 
         self.frame3.grid(row=3, column=0, columnspan=2, sticky=N+E+S+W)
         self.merge_button.grid(row=1, column=1, sticky=W)
