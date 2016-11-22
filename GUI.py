@@ -21,9 +21,10 @@ class PdfGUI:
         master.configure(background=bg_col)
 
         # Make these instances of a class?
-        self.frame1 = Frame(master, height=200, width=300)
-        self.frame2 = Frame(master, height=200, width=300)
-        self.frame3 = Frame(master, height=200, width=300)
+        self.frame0 = Frame(master, bg='firebrick')
+        self.frame1 = Frame(master, bg='steelblue')
+        self.frame2 = Frame(master, bg='seagreen')
+        self.frame3 = Frame(master, bg='#DCDCDC')
 
         self.file_name_text = StringVar()
         self.file_name2_text = StringVar()
@@ -36,12 +37,12 @@ class PdfGUI:
         self.first_file_label = Label(self.frame1, text='Select a file:', bg=bg_col)
         # Command argument as a lambda function so does not run upon startup
         self.first_file_browser = Button(self.frame1, text='Browse', command=lambda: self.file_browser())
-        self.first_select_label = Label(self.frame1, textvariable=self.file_name_text, width=50)
+        self.first_select_label = Label(self.frame1, textvariable=self.file_name_text, bg=bg_col)
 
         # File 2
         self.second_file_label = Label(self.frame2, text='Select a file:', bg=bg_col)
         self.second_file_browser = Button(self.frame2, text='Browse', command=lambda: self.file_browser2())
-        self.second_select_label = Label(self.frame2, textvariable=self.file_name2_text, width=50)
+        self.second_select_label = Label(self.frame2, textvariable=self.file_name2_text, bg=bg_col)
 
         # Output naming
         self.merged_file_name = Entry(self.frame3)
@@ -56,33 +57,28 @@ class PdfGUI:
                                                           self.save_dir_text.get(), self.merged_file_name.get()))
 
         # Title
-        self.title_label = Label(master, text='PDF Merger', font=(font_style, 16), bg=bg_col)
+        self.title_label = Label(self.frame0, text='PDF Merger', font=(font_style, 16), bg=bg_col)
 
         # Blank label
         self.blank_label = Label(master, bg=bg_col)
 
         # LAYOUT #
 
-        self.title_label.grid(row=0, column=0)
+        # Build master frame - 4 frames so 4 rows, only need 1 column in parent frame
+        for row in range(4):
+            master.rowconfigure(row, weight=1)
 
-        self.frame1.grid(row=1, column=0)
-        self.first_file_label.grid(row=1, column=0)
-        self.first_file_browser.grid(row=1, column=1)
-        self.first_select_label.grid(row=1, column=2)
+        master.columnconfigure(1, weight=1)
 
-        self.frame2.grid(row=2, column=0)
-        self.second_file_label.grid(row=1, column=0)
-        self.second_file_browser.grid(row=1, column=1)
-        self.second_select_label.grid(row=1, column=2)
+        self.frame0.grid(row=0, column=0, columnspan=2, sticky=N+E+S+W)
+        # self.title_label.grid(row=0, column=0)
 
-        self.frame3.grid(row=3, column=0)
-        self.merged_file_label.grid(row=1, column=0)
-        self.merged_directory_browser.grid(row=1, column=1)
-        self.merged_directory_label.grid(row=1, column=2)
-        self.merged_file_name.grid(row=1, column=3)
-        self.merge_button.grid(row=2, column=1)
+        self.frame1.grid(row=1, column=0, columnspan=2, sticky=N+E+S+W)
+        # self.first_file_label.grid(row=0, column=0)
+        # self.first_file_browser.grid(row=0, column=2)
 
-        self.quit_button.grid(row=6, column=1)
+        self.frame2.grid(row=2, column=0, columnspan=2, sticky=N+E+S+W)
+        self.frame3.grid(row=3, column=0, columnspan=2, sticky=N+E+S+W)
 
     # Function to open file browser
     def file_browser(self):
