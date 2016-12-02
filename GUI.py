@@ -59,8 +59,11 @@ class PdfGUI:
         # Merge button
         self.merge_button = Button(self.frame3, text='Merge',
                                    command=lambda:
-                                   PDFMethods.combine_pdf(self.file_name_text.get(), self.file_name2_text.get(),
-                                                          self.save_dir_text.get(), self.merged_file_name.get()))
+                                   self.combine_funcs(PDFMethods.combine_pdf(self.file_name_text.get(),
+                                                                             self.file_name2_text.get(),
+                                                                             self.save_dir_text.get(),
+                                                                             self.merged_file_name.get()),
+                                                      master.quit()))
 
         # Quit app button
         self.quit_button = Button(self.frame3, text='Quit', command=master.quit)
@@ -120,6 +123,13 @@ class PdfGUI:
     def save_dir(self):
         save_dir_text = filedialog.askdirectory()
         self.save_dir_text.set(save_dir_text)
+
+    # Generic function to combine functions
+    def combine_funcs(*funcs):
+        def combined_func(*args, **kwargs):
+            for f in funcs:
+                f(*args, **kwargs)
+        return combined_func
 
 if __name__ == '__main__':
     root = Tk()
