@@ -17,8 +17,9 @@ def combine_pdf(file1, file2, dir_name, output_name):
         messagebox.showwarning(title="Error Opening File",
                                message="Please select a file that exists")
 
-    except PermissionError:
+    try:
+        output.write(open(dir_name + '/' + output_name + '.pdf', 'wb'))
+
+    except FileNotFoundError:
         messagebox.showerror(title="Error in Merged File Name",
                              message="Please enter a legal file name")
-
-    output.write(open(dir_name + '/' + output_name + '.pdf', 'wb'))
