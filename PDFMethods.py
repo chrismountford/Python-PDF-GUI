@@ -20,6 +20,6 @@ def combine_pdf(file1, file2, dir_name, output_name):
     try:
         output.write(open(dir_name + '/' + output_name + '.pdf', 'wb'))
 
-    except FileNotFoundError:
+    except PermissionError:
         messagebox.showerror(title="Error in Merged File Name",
                              message="Please enter a legal file name")
